@@ -19,7 +19,7 @@ BUILD_DIR     ?= $(PROGRAM_DIR)/build
 FIRMWARE_DIR  ?= $(PROGRAM_DIR)/firmware
 
 # esptool.py from https://github.com/themadinventor/esptool
-ESPTOOL       ?= esptool.py
+ESPTOOL       ?= $(ROOT)/esptool/esptool.py
 # serial port settings for esptool.py
 ESPBAUD       ?= 115200
 ESPPORT       ?= /dev/ttyUSB0
@@ -40,9 +40,9 @@ OBJCOPY       = $(CROSS)objcopy
 OBJDUMP       = $(CROSS)objdump
 
 # binary esp-iot-rtos SDK libraries to link. These are pre-processed prior to linking.
-STD_LIBS      ?= hal gcc c
-SDK_LIBS      ?= json main net80211 lwip phy pp pwm ssl upgrade wpa
-USR_LIBS      ?= 
+LIBS_STD      ?= hal gcc c
+LIBS_SDK      ?= crypto json main net80211 lwip phy pp pwm ssl upgrade wpa
+LIBS_USR      ?=
 
 LD_SCRIPTS    ?= $(ROOT)/sdk/ld/eagle.app.v6.ld
 

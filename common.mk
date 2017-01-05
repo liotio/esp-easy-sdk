@@ -21,20 +21,20 @@ endif
 # , which is useful for overriding things.
 SRC_DIRS      := $(PROGRAM_DIR) $(EXTRA_SRCS)
 INC_DIRS      := $(PROGRAM_DIR) $(PROGRAM_DIR)include $(EXTRA_INCS) $(ROOT)/sdk/include
-LIB_DIRS_STD  := $(ROOT)/sdk/lib
-LIB_DIRS_SDK  :=
+LIB_DIRS_STD  := $(ROOT)/xtensa-lx106-elf/xtensa-lx106-elf/sysroot/lib
+LIB_DIRS_SDK  := $(ROOT)/sdk/lib
 
 SRC_ARGS      := $(addsuffix /**,$(SRC_DIRS))
 INC_ARGS      := $(addprefix -I,$(INC_DIRS))
 LIB_ARGS      := $(addprefix -L,$(LIB_DIRS_STD))
-LIB_ARGS      := $(addprefix -L,$(LIB_DIRS_SDK))
-LIB_ARGS      := $(addprefix -L,$(LIB_DIRS_USR))
+LIB_ARGS      += $(addprefix -L,$(LIB_DIRS_SDK))
+LIB_ARGS      += $(addprefix -L,$(LIB_DIRS_USR))
 LIB_ARGS      += $(addprefix -l,$(LIBS_STD))
 LIB_ARGS      += $(addprefix -l,$(LIBS_SDK))
 LIB_ARGS      += $(addprefix -l,$(LIBS_USR))
 LD_ARGS       := $(addprefix -T,$(LD_SCRIPTS))
 
-PROGRAM_OUT   := $(BUILD_DIR)/$(PROGRAM).out
+PROGRAM_OUT   := $(BUILD_DIR)/$(PROGRAM).elf
 
 CFLAGS        := $(INC_ARGS)
 CFLAGS        += -Os
@@ -42,6 +42,7 @@ CFLAGS        += -nostdlib
 CFLAGS        += -mlongcalls
 CFLAGS        += -mtext-section-literals
 CFLAGS        += -ggdb
+CFLAGS        += -w
 CFLAGS        += -Wpointer-arith
 CFLAGS        += -Wundef
 CFLAGS        += -Wl,-EL
