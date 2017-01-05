@@ -3,6 +3,9 @@ esp-easy-sdk
 
 This project is based on the esp-open-sdk (https://github.com/pfalcon/esp-open-sdk).
 
+Updates from the esp-open-sdk repository will automatically be merged every day.
+
+Merge Status [![Merge Status](https://travis-ci.org/liotio/esp-easy-sdk.svg?branch=master)](https://travis-ci.org/liotio/esp-easy-sdk)
 
 Requirements and Dependencies
 =============================
