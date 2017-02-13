@@ -62,7 +62,7 @@ LDFLAGS       += -Wl,--no-check-sections
 LDFLAGS       += -Wl,--start-group $(LIB_ARGS) -Wl,--end-group
 
 FW_ADDR_1     := 0x00000
-FW_ADDR_2     := 0x40000
+FW_ADDR_2     := 0x10000
 FW_FILE_1     := $(FIRMWARE_DIR)/$(FW_ADDR_1).bin
 FW_FILE_2     := $(FIRMWARE_DIR)/$(FW_ADDR_2).bin
 
@@ -76,7 +76,7 @@ endif
 
 .PHONY: all clean flash erase_flash echo
 
-all: $(FW_FILE_1) $(FW_FILE_2)
+all: $(FW_FILE_1)
 
 # recursive wildcards
 rwildcard=$(wildcard $1$2) $(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2))
@@ -105,7 +105,7 @@ endef
 $(foreach src,$(C_SOURCE),$(eval $(call compile,$(src),CC)))
 $(foreach src,$(CPP_SOURCE),$(eval $(call compile,$(src),CPP)))
 
-$(FW_FILE_1) $(FW_FILE_2): $(PROGRAM_OUT) $(FIRMWARE_DIR)
+$(FW_FILE_1): $(PROGRAM_OUT) $(FIRMWARE_DIR)
 	$(vecho) "FW $@"
 	$(Q) $(ESPTOOL) elf2image $(ESPTOOL_ARGS) $< -o $(FIRMWARE_DIR)/
 
